@@ -25,14 +25,16 @@ def main() -> None:
     tick = a.tick_entity or ""
     # Empty optional entities are represented by a harmless unavailable entity.
     fallback = "sensor.echo_dashboard_optional_not_configured"
-    spotify_state = f"states('{spotify}')" if spotify else "'unavailable'"
-    ma_state = f"states('{ma}')" if ma else "'unavailable'"
+    spotify_ref = spotify or fallback
+    ma_ref = ma or fallback
+    spotify_state = f"states('{spotify_ref}')" if spotify else "'unavailable'"
+    ma_state = f"states('{ma_ref}')" if ma else "'unavailable'"
     source_entity = player
     active = f"states('{source_entity}') in ['playing', 'paused']"
     selection = (
         f"'{source_entity}' if {active} else "
-        f"'{spotify}' if {spotify_state} in ['playing', 'paused'] else "
-        f"'{ma}' if {ma_state} in ['playing', 'paused'] else '{source_entity}'"
+        f"'{spotify_ref}' if {spotify_state} in ['playing', 'paused'] else "
+        f"'{ma_ref}' if {ma_state} in ['playing', 'paused'] else '{source_entity}'"
     )
     image = (
         "{% set entity = " + selection + " %}"
