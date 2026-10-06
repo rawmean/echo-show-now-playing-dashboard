@@ -60,27 +60,27 @@ def main() -> None:
 
     controls = [
         {"type": "button", "icon": "mdi:skip-previous", "show_name": False,
-         "icon_height": "37px", "tap_action": {"action": "call-service", "service": "media_player.media_previous_track", "target": {"entity_id": player}}},
+         "icon_height": "44px", "tap_action": {"action": "call-service", "service": "media_player.media_previous_track", "target": {"entity_id": player}}},
         {"type": "button", "icon": "mdi:play-pause", "show_name": False,
-         "icon_height": "37px", "tap_action": {"action": "call-service", "service": "media_player.media_play_pause", "target": {"entity_id": player}}},
+         "icon_height": "44px", "tap_action": {"action": "call-service", "service": "media_player.media_play_pause", "target": {"entity_id": player}}},
         {"type": "button", "icon": "mdi:skip-next", "show_name": False,
-         "icon_height": "37px", "tap_action": {"action": "call-service", "service": "media_player.media_next_track", "target": {"entity_id": player}}},
+         "icon_height": "44px", "tap_action": {"action": "call-service", "service": "media_player.media_next_track", "target": {"entity_id": player}}},
     ]
     right_cards = [
-        {"type": "horizontal-stack", "cards": controls, "card_mod": {"style": "ha-card { padding: 0; }"}},
+        {"type": "horizontal-stack", "cards": controls, "card_mod": {"style": "ha-card { padding: 8px; border-radius: 18px; background: rgba(20,30,45,.72); }"}},
         {"type": "tile", "entity": player, "name": "Volume", "icon": "mdi:volume-high", "hide_state": True,
          "features": [{"type": "media-player-volume-slider"}], "features_position": "bottom",
-         "card_mod": {"style": {"ha-card": {"--feature-height": "21px", "padding": "4px 12px"}}}},
-        {"type": "markdown", "content": title},
+         "card_mod": {"style": {"ha-card": {"--feature-height": "21px", "padding": "6px 14px", "border-radius": "16px", "background": "rgba(20,30,45,.58)"}}}},
+        {"type": "markdown", "content": title, "card_mod": {"style": "ha-card { padding: 8px 14px 4px; background: transparent; box-shadow: none; } h1 { font-size: 1.35rem; line-height: 1.2; margin: 0; } h2 { font-size: 1rem; opacity: .72; margin: 6px 0 0; }"}},
         {"type": "markdown", "content": " " if not tick else "{% set tick = states('" + tick + "') %}", "card_mod": {"style": progress_style}},
     ]
     if not a.no_iframe:
         right_cards.append({"type": "iframe", "url": "/local/keep-silk-black.html", "aspect_ratio": "1%", "allow": "autoplay", "dark_mode": True})
 
     cards = [{"type": "grid", "columns": 2, "square": False, "cards": [
-        {"type": "markdown", "content": image},
+        {"type": "markdown", "content": image, "card_mod": {"style": "ha-card { padding: 10px; border-radius: 24px; background: linear-gradient(145deg, rgba(25,38,58,.9), rgba(8,12,20,.95)); box-shadow: 0 10px 30px rgba(0,0,0,.28); }"}},
         {"type": "vertical-stack", "cards": right_cards},
-    ]}]
+    ], "card_mod": {"style": "ha-card { padding: 12px; border-radius: 28px; background: linear-gradient(135deg, rgba(9,18,31,.98), rgba(20,42,62,.94)); border: 1px solid rgba(130,190,220,.18); }"}}]
     if a.presence_entity:
         cards.append({"type": "conditional", "conditions": [{"entity": a.presence_entity, "state": "off"}], "card": {"type": "markdown", "content": " ", "card_mod": {"style": "ha-card { position:fixed; inset:0; z-index:9999; background:#000; opacity:.8; pointer-events:none; border-radius:0; }"}}})
 
